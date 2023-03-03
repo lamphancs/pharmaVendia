@@ -8,6 +8,7 @@ import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
+import FAQ from "./scenes/faq";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -25,7 +26,7 @@ function App() {
                   <Route path="/" element={<Dashboard />} />
                   <Route path="/team" element={<Team />} />
                   <Route path="/form" element={<Form />} />
-                  {/* <Route path="/faq" element={<FAQ />} /> */}
+                  <Route path="/faq" element={<FAQ />} />
                   <Route path="/calendar" element={<Calendar />} />
                 </Routes>
               </main>

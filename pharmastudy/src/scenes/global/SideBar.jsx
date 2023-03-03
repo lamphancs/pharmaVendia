@@ -73,16 +73,19 @@ const SideBar = () => {
                 {!isCollapsed && (
                   <Box
                     display="flex"
-                    justifyContent="space-between"
+                    justifyContent="center"
                     alignItems="center"
                     ml="15px"
                   >
-                    <Typography variant="h3" color={colors.grey[100]}>
-                      ADMIN
+                    <Typography 
+                      variant="h3" color={colors.greenAccent[500]}
+                      fontWeight="bold"
+                    >
+                      JaneHopkins
                     </Typography>
-                    <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    {/* <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                       <MenuOutlinedIcon />
-                    </IconButton>
+                    </IconButton> */}
                   </Box>
                 )}
               </MenuItem>
