@@ -1,17 +1,36 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import Header from "../../components/Header";
+import useJaneHopkins from "../../hooks/useJaneHopkins"
+import React, { useEffect, useState } from 'react';
 
 const Patient = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    const [patients, setPatients] = useState([]);
+    console.log(patients);
+
+    const { entities } = useJaneHopkins();
+    const listPatients = async () => {
+      const { items } = await entities.patient.list();
+      setPatients(items);
+      
+    };
+
+    useEffect(() => {
+      listPatients();
+    }, []);
+
+    const getRowId = (row) => row._id;
+
     const columns = [
-        { field: "id", headerName: "ID" },
+        { 
+          field: "_id", 
+          headerName: "ID",
+          flex: 1,
+        },
         {
           field: "name",
           headerName: "Name",
@@ -19,51 +38,20 @@ const Patient = () => {
           cellClassName: "name-column--cell",
         },
         {
-          field: "phone",
-          headerName: "Phone Number",
+          field: "dob",
+          headerName: "DOB",
           flex: 1,
         },
         {
-          field: "email",
-          headerName: "Email",
+          field: "insuranceNumber",
+          headerName: "Insurance Number",
           flex: 1,
-        },
-        {
-          field: "accessLevel",
-          headerName: "Access Level",
-          flex: 1,
-          headerAlign:'center',
-          renderCell: ({ row: { access } }) => {
-            return (
-              <Box
-                width="60%"
-                m="0 auto"
-                p="5px"
-                display="flex"
-                justifyContent="center"
-                backgroundColor={
-                  access === "admin"
-                    ? colors.greenAccent[700]
-                    : access === "doctor"
-                    ? colors.greenAccent[700]
-                    : colors.greenAccent[700]
-                }
-                borderRadius="4px"
-              >
-                {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-                {access === "doctor" && <MedicalServicesIcon />}
-                <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-                  {access}
-                </Typography>
-              </Box>
-            );
-          },
         },
       ];
 
       return (
         <Box m="20px">
-          <Header title="TEAM" subtitle="Managing the Team Members" />
+          <Header title="Patient List" />
           <Box
             m="40px 0 0 0"
             height="75vh"
@@ -93,7 +81,9 @@ const Patient = () => {
               },
             }}
           >
-            <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+            <div style={{ height: '100%', width: '100%' }}>
+              <DataGrid checkboxSelection rows={patients} columns={columns} getRowId={getRowId} />
+            </div>
           </Box>
         </Box>
     );
