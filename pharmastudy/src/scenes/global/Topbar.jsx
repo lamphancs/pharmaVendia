@@ -8,11 +8,29 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import useJaneHopkins from '../../hooks/useJaneHopkins';
+//Test
+import { mockPatientList } from '../../data/mockData';
 
 const TopBar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
+
+    /* TEST ADD PATIENT */
+    const { entities } = useJaneHopkins();
+
+    const addPatient = async (patientData) => {
+        const addPatientResponse = await entities.patient.add(patientData);
+    };
+    // const addPatient = async () => {
+    //     const response = await entities.patient.remove("01866901-70ee-8e21-5ea9-dbdd67850f61");
+    // };
+    
+     mockPatientList.forEach(async (patient) => {
+         await addPatient(patient);
+       });
+    /************************************/ 
 
     return (
         <Box display="flex" justifyContent="space-between" p={2}>
@@ -37,7 +55,9 @@ const TopBar = () => {
                     <LightModeOutlinedIcon />
                 )}
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={() => {
+                    addPatient();
+                }}>
                 <NotificationsOutlinedIcon />
                 </IconButton>
                 <IconButton>
