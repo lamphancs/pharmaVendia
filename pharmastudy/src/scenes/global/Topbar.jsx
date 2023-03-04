@@ -17,7 +17,7 @@ const TopBar = () => {
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
 
-    /* TEST ADD PATIENT */
+    /* TEST ADD PATIENT 
     const { entities } = useJaneHopkins();
 
     const addPatient = async (patientData) => {
@@ -56,7 +56,7 @@ const TopBar = () => {
                 )}
                 </IconButton>
                 <IconButton onClick={() => {
-                    addPatient();
+                    //addPatient();
                 }}>
                 <NotificationsOutlinedIcon />
                 </IconButton>
